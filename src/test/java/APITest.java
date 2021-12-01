@@ -94,6 +94,10 @@ public class APITest {
         System.out.println("status code : "+ get().getStatusCode());
     }
     @Test
+    void DeleteCart(){
+        //Kart silme işlemi yapılacak.
+    }
+    @Test
     void DeleteBoard(){
 
             baseURI="https://api.trello.com";
