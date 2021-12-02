@@ -1,12 +1,38 @@
 import static io.restassured.RestAssured.*;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.http.Header;
+import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class APITest {
+
+//    @Test
+//    void test1(){
+//       String baseUrl="http://anka-weblogiclb.ng112.gov.tr:7003/AcilNG112Middleware-war/webresources";
+//
+//       Response response= get(baseUrl+"/ng112rest/eventType/list");
+//
+//
+//        System.out.println("Status Code :"+response.getStatusCode());
+//        System.out.println("Response : "+ response.asString());
+//        System.out.println("Body : "+response.getBody().asString());
+//        System.out.println("Time taken : "+response.getTime());
+//        System.out.println("Header : "+response.getHeader("content-type"));
+//        int statusCode =response.getStatusCode();
+//        Assert.assertEquals(statusCode,201);
+//
+////        if (response.getStatusCode()==200){
+////            System.out.println("Deneme");
+////        }
+   // }
+
     @Test
     void CreateBoard(){
        // String baseUrl="https://api.trello.com";
@@ -24,6 +50,10 @@ public class APITest {
                 .post("/1/boards/");
         System.out.println("status code : "+ get().getStatusCode());
 
+
+
+
+
     }
     @Test
     void CreateCart(){
@@ -35,7 +65,7 @@ public class APITest {
                     .queryParam("name","Cart"+x)
                     .queryParam("key", "c280c8df9c716df8184e2e8432fa445f")
                     .queryParam("token","b90d738b0a421d21ace7d231c68e7d6c7b47c5abc4bc8561d3afcb1714790681")
-                    .queryParam("idList","61a89dbce5df2287ba3a0c01")
+                    .queryParam("idList","61a76db8b95d31254525df41")
                     .post("/1/cards");
             System.out.println("status code : "+ get().getStatusCode());
         }
@@ -72,19 +102,6 @@ public class APITest {
                 .queryParam("token","b90d738b0a421d21ace7d231c68e7d6c7b47c5abc4bc8561d3afcb1714790681")
                 .put("/1/cards/{id}");
         System.out.println("status code : "+ get().getStatusCode());
-    }
-    @Test
-    void GetList(){
-        baseURI="https://api.trello.com";
-        given().log().all()
-                .contentType(ContentType.JSON)
-                .pathParams("id","61a89dbce5df2287ba3a0c01")
-                .queryParam("key", "c280c8df9c716df8184e2e8432fa445f")
-                .queryParam("token","b90d738b0a421d21ace7d231c68e7d6c7b47c5abc4bc8561d3afcb1714790681")
-                .post("/1/lists/{id}");
-        System.out.println("Cartlar : "+get());
-
-        //cart idlerini burdan almam gerkiyor.
     }
     @Test
     void DeleteCart(){
@@ -125,4 +142,5 @@ public class APITest {
 
 
     }
+
 }
