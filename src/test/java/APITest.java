@@ -13,25 +13,7 @@ import java.util.Random;
 
 public class APITest {
 
-//    @Test
-//    void test1(){
-//       String baseUrl="http://anka-weblogiclb.ng112.gov.tr:7003/AcilNG112Middleware-war/webresources";
-//
-//       Response response= get(baseUrl+"/ng112rest/eventType/list");
-//
-//
-//        System.out.println("Status Code :"+response.getStatusCode());
-//        System.out.println("Response : "+ response.asString());
-//        System.out.println("Body : "+response.getBody().asString());
-//        System.out.println("Time taken : "+response.getTime());
-//        System.out.println("Header : "+response.getHeader("content-type"));
-//        int statusCode =response.getStatusCode();
-//        Assert.assertEquals(statusCode,201);
-//
-////        if (response.getStatusCode()==200){
-////            System.out.println("Deneme");
-////        }
-   // }
+
 
     @Test
     void CreateBoard(){
