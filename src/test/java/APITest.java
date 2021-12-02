@@ -7,6 +7,10 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class APITest {
 
 //    @Test
@@ -68,12 +72,18 @@ public class APITest {
     @Test
     void UpdateCart(){
         RestAssured.baseURI = "https://api.trello.com";
+         //String[] CartId={"61a770582a24cf70bfc0609b","61a7705ae9b7117cb4a9f767","d","f"};
+        List<String >CartId=new ArrayList<>();
+        CartId.add("61a770582a24cf70bfc0609b");
+        CartId.add("61a7705ae9b7117cb4a9f767");
+        Random random =new Random();
+        int randomCart=random.nextInt(CartId.size());
         given().log().all()
                 //.header("contentType","aContentType.JSON")
                 .contentType(ContentType.JSON)
-                .pathParams("id","61a770582a24cf70bfc0609b")
-                .queryParam("name","sedat")
-                .queryParam("desc","Açıklama")
+                .pathParam("id",CartId.get(randomCart))
+                .queryParam("name","test")
+                .queryParam("desc","açıklama")
                 .queryParam("closed","false")
                 .queryParam("idMembers","")
                 .queryParam("idAttachmentCover","")
@@ -90,7 +100,7 @@ public class APITest {
                 .queryParam("key", "c280c8df9c716df8184e2e8432fa445f")
                 .queryParam("token","b90d738b0a421d21ace7d231c68e7d6c7b47c5abc4bc8561d3afcb1714790681")
 
-                .put("/1/cards");
+                .put("/1/cards/{id}");
         System.out.println("status code : "+ get().getStatusCode());
     }
     @Test
