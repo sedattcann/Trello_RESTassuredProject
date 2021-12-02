@@ -32,6 +32,7 @@ public class APITest {
 ////            System.out.println("Deneme");
 ////        }
    // }
+
     @Test
     void CreateBoard(){
        // String baseUrl="https://api.trello.com";
@@ -82,7 +83,7 @@ public class APITest {
                 //.header("contentType","aContentType.JSON")
                 .contentType(ContentType.JSON)
                 .pathParam("id",CartId.get(randomCart))
-                .queryParam("name","test")
+                .queryParam("name","deneme")
                 .queryParam("desc","açıklama")
                 .queryParam("closed","false")
                 .queryParam("idMembers","")
@@ -99,21 +100,39 @@ public class APITest {
                 .queryParam("coordinates","")
                 .queryParam("key", "c280c8df9c716df8184e2e8432fa445f")
                 .queryParam("token","b90d738b0a421d21ace7d231c68e7d6c7b47c5abc4bc8561d3afcb1714790681")
-
                 .put("/1/cards/{id}");
         System.out.println("status code : "+ get().getStatusCode());
     }
     @Test
     void DeleteCart(){
-        //Kart silme işlemi yapılacak.
+        baseURI="https://api.trello.com";
+        List<String >CartId=new ArrayList<>();
+        CartId.add("61a770582a24cf70bfc0609b");
+        CartId.add("61a7705ae9b7117cb4a9f767");
+
+
+        for (int x=0;x<CartId.size();x++){
+            given().log().all()
+                    .contentType(ContentType.JSON)
+                    .pathParams("id",CartId.get(x))
+                    .queryParam("key", "c280c8df9c716df8184e2e8432fa445f")
+                    .queryParam("token","b90d738b0a421d21ace7d231c68e7d6c7b47c5abc4bc8561d3afcb1714790681")
+                    .delete("/1/cards/{id}");
+        }
+
+
+
+        System.out.println("status code : "+ get().getStatusCode());
     }
     @Test
     void DeleteBoard(){
 
             baseURI="https://api.trello.com";
+
+
             given().log().all()
                     .contentType(ContentType.JSON)
-                    .pathParams("id","guG3qhHH")
+                    .pathParams("id","s6jD1jNu")
                     .queryParam("key", "c280c8df9c716df8184e2e8432fa445f")
                     .queryParam("token","b90d738b0a421d21ace7d231c68e7d6c7b47c5abc4bc8561d3afcb1714790681")
                     .delete("/1/boards/{id}");
