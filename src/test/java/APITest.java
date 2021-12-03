@@ -1,10 +1,19 @@
-import static io.restassured.RestAssured.*;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.InflaterInputStream;
+
+import static io.restassured.RestAssured.*;
 
 public class APITest {
 
@@ -25,7 +34,7 @@ public class APITest {
                 .queryParam("key", "c280c8df9c716df8184e2e8432fa445f")
                 .queryParam("token","b90d738b0a421d21ace7d231c68e7d6c7b47c5abc4bc8561d3afcb1714790681")
                 .post("/1/boards/");
-        System.out.println("status code : "+ get().getStatusCode());
+
 
 
 
@@ -83,15 +92,51 @@ public class APITest {
     @Test
     void GetList(){
         baseURI="https://api.trello.com";
-        given().log().all()
-                .contentType(ContentType.JSON)
+
+        Response resp1=given()
+                .log().all()
+//                .contentType(ContentType.JSON)
+//                .header("Content-Type","application/json;charset=utf-8")
+                .header("accept-encoding", "gzip")
+//                .contentType("application/json;charset=utf-8")
+
                 .pathParams("id","61a89dbce5df2287ba3a0c01")
                 .queryParam("key", "c280c8df9c716df8184e2e8432fa445f")
                 .queryParam("token","b90d738b0a421d21ace7d231c68e7d6c7b47c5abc4bc8561d3afcb1714790681")
-                .post("/1/lists/{id}");
-        System.out.println("Cartlar : "+get());
+                .get("/1/lists/{id}");
+        System.out.println("Time taken : "+get().time());
+        System.out.println("StatusCode : "+get().getStatusCode());
+        System.out.println("ContentType : "+get().getContentType());
+        resp1.prettyPrint();
+        String as=resp1.jsonPath().get("id");
+        String as2=resp1.jsonPath().get("name");
+        System.out.println("id : "+as+" name: "+as2);
+//        System.out.println("Body"+get().getBody().asString());
+        ByteArrayOutputStream bout=null;
+        try {
+//            System.out.println(get().getBody());
+//            InflaterInputStream ini = new InflaterInputStream(new GZIPInputStream(get().getBody().asInputStream()));
+//            String str=new String(Base64.getEncoder().encodeToString(get().getBody().asByteArray()));
+//            byte bytes[]=str.getBytes("UTF-8");
+//            bout =new ByteArrayOutputStream(512);
+//            bout.write(bytes, 0, bytes.length);
+//            int b;
+//            while ((b = ini.read()) != -1) {
+//                bout.write(b);
+//            }
+//            ini.close();
+//            bout.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
+//        String s=new String(bout.toByteArray());
+//        System.out.println(s);
         //cart idlerini burdan almam gerkiyor.
+    }
+
+    private void readdata(InputStream stream) throws IOException {
+
     }
     @Test
     void DeleteCart(){
